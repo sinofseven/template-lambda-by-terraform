@@ -6,6 +6,7 @@ on:
       - ".idea/**"
       - ".gitignore"
     branches:
+      - "*"
     tags:
       - "v*"
 

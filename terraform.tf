@@ -13,10 +13,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "<bucket>"
-    key            = "<key>"
-    dynamodb_table = "<table>"
-    region         = "<region>"
+    bucket         = null
+    key            = null
+    dynamodb_table = null
+    region         = null
   }
 }
 
@@ -44,6 +44,7 @@ module "common" {
   system_name = var.system_name
   region      = var.region
 
+  layer_arn_base                           = var.layer_arn_base
   slack_incoming_webhook_error_notifier_01 = var.SLACK_INCOMING_WEBHOOK_ERROR_NOTIFIER_01
 }
 
@@ -57,6 +58,11 @@ variable "system_name" {
 }
 
 variable "region" {
+  type     = string
+  nullable = false
+}
+
+variable "layer_arn_base" {
   type     = string
   nullable = false
 }
