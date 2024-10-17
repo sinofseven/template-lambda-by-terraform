@@ -297,4 +297,3 @@ cython_debug/
 ### Custom
 /tmp/
 lambda_deploy_package.zip
-!terraform.tfvars
