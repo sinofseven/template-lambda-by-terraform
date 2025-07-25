@@ -24,6 +24,9 @@ jobs:
   terraform:
     runs-on: ubuntu-22.04
     steps:
+      - name: Add Mask
+        run: |
+          echo "::add-mask::${{ secrets.ACCOUNT_ID }}"
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
         with:
