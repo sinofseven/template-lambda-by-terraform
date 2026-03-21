@@ -8,14 +8,14 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.72"
+      version = "~> 6.37"
     }
   }
 
   backend "s3" {
-    bucket         = null
-    key            = null
-    region         = null
+    bucket = null
+    key    = null
+    region = null
   }
 }
 

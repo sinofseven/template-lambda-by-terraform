@@ -97,4 +97,5 @@ terraform-init:
 	lint-python \
 	test-unit \
 	compose-up \
-	compose-down
+	compose-down \
+	terraform-init
