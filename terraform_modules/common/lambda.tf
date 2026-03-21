@@ -1,9 +1,3 @@
-locals {
-  lambda = {
-    runtime = "python3.12"
-  }
-}
-
 # ================================================================
 # Lambda Deploy Package
 # ================================================================
@@ -31,7 +25,7 @@ module "lambda_error_processor" {
   identifier = "error_processor"
   handler    = "handlers/error_processor/error_processor.handler"
   role_arn   = aws_iam_role.lambda_error_processor.arn
-  layers     = [var.layer_arn_base]
+  layers     = ["arn:aws:lambda:ap-northeast-1:043309354008:layer:LuciferousPublicLayerAwsCloudwatchLogsUrlPython314:1"]
 
   environment_variables = {
     SYSTEM_NAME    = var.system_name
@@ -42,8 +36,8 @@ module "lambda_error_processor" {
   s3_key_deploy_package    = aws_s3_object.lambda_deploy_package.key
   source_code_hash         = data.archive_file.lambda_deploy_package.output_base64sha256
   system_name              = var.system_name
-  runtime                  = local.lambda.runtime
   region                   = var.region
+  runtime                  = "python3.14"
 }
 
 resource "aws_lambda_permission" "error_processor" {

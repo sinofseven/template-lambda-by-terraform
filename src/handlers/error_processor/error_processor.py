@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import json
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from os.path import basename
+from typing import TYPE_CHECKING
 
 from aws_cloudwatch_logs_url import create_url_log_events
 from aws_lambda_powertools.logging.types import (
@@ -19,6 +22,9 @@ from aws_lambda_powertools.utilities.data_classes.cloud_watch_logs_event import 
 from utils.aws import create_client
 from utils.dataclasses import load_environments
 from utils.logger import create_logger, logging_function, logging_handler
+
+if TYPE_CHECKING:
+    from mypy_boto3_events import EventBridgeClient
 
 
 @dataclass(frozen=True)
@@ -50,7 +56,7 @@ def handler(event: CloudWatchLogsEvent, context):
 def main(
     *,
     event: CloudWatchLogsEvent,
-    client_events=create_client("events"),
+    client_events: EventBridgeClient = create_client("events"),
 ):
     env = load_environments(class_dataclass=EnvironmentVariables)
     decompressed_log = event.parse_logs_data()
@@ -248,7 +254,7 @@ def create_slack_payload(
 
 
 @logging_function(logger)
-def put_events(*, messages: list[str], event_bus_name: str, client):
+def put_events(*, messages: list[str], event_bus_name: str, client: EventBridgeClient):
     mapping_messages = {str(i): x for i, x in enumerate(messages)}
     union_succeeded = set()
     union_all = set(mapping_messages.keys())

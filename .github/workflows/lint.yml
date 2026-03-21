@@ -13,7 +13,6 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.9.8
-      - run: |
-          pip install poetry
-          poetry install
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --all-groups --all-extras
       - run: make lint
