@@ -10,7 +10,7 @@ resource "aws_cloudwatch_event_api_destination" "slack" {
   connection_arn      = var.connection_arn_slack_dummy
   http_method         = "POST"
   invocation_endpoint = var.slack_incoming_webhook_url
-  name                = var.api_destination_name
+  name                = "${var.system_name}-${var.api_destination_name}"
 }
 
 resource "aws_cloudwatch_event_target" "slack" {

@@ -2,7 +2,7 @@ import os
 from functools import wraps
 from typing import Callable
 
-from aws_lambda_powertools import Logger
+from .logger import Logger
 
 EXCLUDE_ENV_KEYS = {
     "AWS_ACCESS_KEY_ID",
@@ -18,10 +18,12 @@ EXCLUDE_ENV_KEYS = {
 }
 
 
-def logging_handler(logger: Logger, *, with_return: bool = False) -> Callable:
+def logging_handler(logger: Logger, *, with_return: bool = True) -> Callable:
     def decorator(handler: Callable) -> Callable:
+
+        # noinspection PyProtectedMember
         @wraps(handler)
-        @logger.inject_lambda_context()
+        @logger._powertools_logger.inject_lambda_context()
         def process(event, context, *args, **kwargs):
             try:
                 logger.debug(
@@ -51,8 +53,9 @@ def logging_handler(logger: Logger, *, with_return: bool = False) -> Callable:
                 logger.error(
                     f"error occurred in handler: {e}",
                     exc_info=True,
-                    data={"ErrorType": str(type(e)), "ErrorMessage": str(e)},
+                    data={"Error": {"Type": str(type(e)), "Message": str(e)}},
                 )
+                raise
 
         return process
 

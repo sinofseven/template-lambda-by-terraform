@@ -1,7 +1,6 @@
 services:
-  localstack:
-    image: localstack/localstack:3.3
+  floci:
+    container_name: floci
+    image: hectorvent/floci:latest
     ports:
       - "4566:4566"
-    environment:
-      SERVICES: events

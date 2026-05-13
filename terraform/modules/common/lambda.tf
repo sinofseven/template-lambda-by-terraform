@@ -5,7 +5,7 @@
 data "archive_file" "lambda_deploy_package" {
   type        = "zip"
   output_path = "lambda_deploy_package.zip"
-  source_dir  = "${path.root}/src"
+  source_dir  = "${path.root}/../../../src"
 }
 
 resource "aws_s3_object" "lambda_deploy_package" {
@@ -13,6 +13,7 @@ resource "aws_s3_object" "lambda_deploy_package" {
   key    = "lambda_deploy_package.zip"
   source = data.archive_file.lambda_deploy_package.output_path
   etag   = data.archive_file.lambda_deploy_package.output_md5
+  storage_class = "STANDARD_IA"
 }
 
 # ================================================================
@@ -37,11 +38,17 @@ module "lambda_error_processor" {
   source_code_hash         = data.archive_file.lambda_deploy_package.output_base64sha256
   system_name              = var.system_name
   region                   = var.region
-  runtime                  = "python3.14"
 }
 
 resource "aws_lambda_permission" "error_processor" {
-  action        = "lambda:InvokeFunction"
-  function_name = module.lambda_error_processor.function_arn
-  principal     = "logs.amazonaws.com"
+  for_each = {
+    Function = module.lambda_error_processor.function_arn
+    Alias    = module.lambda_error_processor.function_alias_arn
+  }
+
+  statement_id   = "AllowLogsInvoke${each.key}"
+  action         = "lambda:InvokeFunction"
+  function_name  = each.value
+  principal      = "logs.amazonaws.com"
+  source_account = data.aws_caller_identity.current.account_id
 }

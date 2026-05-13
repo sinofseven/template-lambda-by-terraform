@@ -28,11 +28,6 @@ variable "role_arn" {
   nullable = false
 }
 
-variable "runtime" {
-  type     = string
-  nullable = false
-}
-
 variable "handler" {
   type     = string
   nullable = false
@@ -77,4 +72,16 @@ variable "alias" {
   type     = string
   nullable = false
   default  = "alias"
+}
+
+variable "powertools_service_name" {
+  type     = string
+  nullable = true
+  default  = null
+}
+
+variable "enable_snap_start" {
+  type     = bool
+  nullable = false
+  default  = false
 }

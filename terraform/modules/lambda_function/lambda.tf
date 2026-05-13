@@ -7,7 +7,6 @@ module "function" {
   identifier                     = var.identifier
   system_name                    = var.system_name
   role_arn                       = var.role_arn
-  runtime                        = var.runtime
   handler                        = var.handler
   memory_size                    = var.memory_size
   timeout                        = var.timeout
@@ -16,6 +15,8 @@ module "function" {
   region                         = var.region
   environment_variables          = var.environment_variables
   alias                          = var.alias
+  powertools_service_name        = var.powertools_service_name
+  enable_snap_start              = var.enable_snap_start
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "error_log" {

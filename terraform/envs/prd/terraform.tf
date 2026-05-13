@@ -3,12 +3,12 @@
 # ================================================================
 
 terraform {
-  required_version = "~> 1.9"
+  required_version = "~> 1.14"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 6.37"
+      version = "~> 6.42"
     }
   }
 
@@ -38,7 +38,7 @@ provider "aws" {
 # ================================================================
 
 module "common" {
-  source = "./terraform_modules/common"
+  source = "../../modules/common"
 
   system_name = var.SYSTEM_NAME
   region      = var.REGION

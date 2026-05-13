@@ -21,3 +21,7 @@ output "log_group_name" {
 output "log_group_arn" {
   value = module.function.log_group_arn
 }
+
+output "function_version" {
+  value = module.function.function_version
+}

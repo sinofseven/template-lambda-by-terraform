@@ -1,3 +1,5 @@
+import functools
+
 import boto3
 from boto3.resources.base import ServiceResource
 from botocore.client import BaseClient
@@ -12,6 +14,7 @@ BOTOCORE_CONFIG_DEFAULT = Config(
 logger = create_logger(__name__)
 
 
+@functools.lru_cache(maxsize=None)
 @logging_function(logger)
 def create_client(name: str, *, config: Config | None = None, **kwargs) -> BaseClient:
     return boto3.client(
@@ -19,6 +22,8 @@ def create_client(name: str, *, config: Config | None = None, **kwargs) -> BaseC
     )
 
 
+# boto3 resources are not thread-safe; avoid sharing cached instances across threads.
+@functools.lru_cache(maxsize=None)
 @logging_function(logger)
 def create_resource(
     name: str, *, config: Config | None = None, **kwargs

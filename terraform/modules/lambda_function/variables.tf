@@ -28,12 +28,6 @@ variable "role_arn" {
   nullable = false
 }
 
-variable "runtime" {
-  type     = string
-  nullable = false
-  default  = "python3.14"
-}
-
 variable "handler" {
   type     = string
   nullable = false
@@ -83,4 +77,16 @@ variable "alias" {
 variable "subscription_destination_lambda_arn" {
   type     = string
   nullable = false
+}
+
+variable "powertools_service_name" {
+  type     = string
+  nullable = true
+  default  = null
+}
+
+variable "enable_snap_start" {
+  type     = bool
+  nullable = false
+  default  = false
 }

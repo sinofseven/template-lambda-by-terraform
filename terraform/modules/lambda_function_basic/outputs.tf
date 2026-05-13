@@ -21,3 +21,7 @@ output "log_group_name" {
 output "log_group_arn" {
   value = aws_cloudwatch_log_group.function.arn
 }
+
+output "function_version" {
+  value = aws_lambda_function.function.version
+}

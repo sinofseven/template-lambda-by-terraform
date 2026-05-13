@@ -23,3 +23,8 @@ variable "api_destination_name" {
   type     = string
   nullable = false
 }
+
+variable "system_name" {
+  type     = string
+  nullable = false
+}

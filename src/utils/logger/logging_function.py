@@ -1,26 +1,27 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from functools import wraps
 from typing import Callable
-from uuid import uuid4
+from uuid import uuid7
+from zoneinfo import ZoneInfo
 
-from aws_lambda_powertools import Logger
+from .logger import Logger
+
+jst = ZoneInfo("Asia/Tokyo")
 
 
 def logging_function(
     logger: Logger,
     *,
-    write: bool = False,
-    with_return: bool = False,
-    with_args: bool = False,
+    write: bool = True,
+    with_return: bool = True,
+    with_args: bool = True,
 ) -> Callable:
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         def process(*args, **kwargs):
             name_function = func.__name__
-            id_call = str(uuid4())
-            dt_start = datetime.now(tz=timezone.utc)
-            result = None
-            is_error = False
+            id_call = str(uuid7())
+            dt_start = datetime.now(tz=jst)
             try:
                 data_start = {"FunctionName": name_function, "CallID": id_call}
                 if with_args:
@@ -30,18 +31,10 @@ def logging_function(
                     logger.debug(
                         f'start function "{name_function}" ({id_call})', data=data_start
                     )
+
                 result = func(*args, **kwargs)
-                return result
-            except Exception as e:
-                is_error = True
-                logger.debug(
-                    f"error occurred: {e}",
-                    exc_info=True,
-                    data={"ErrorType": str(type(e)), "ErrorMessage": str(e)},
-                )
-                raise
-            finally:
-                dt_end = datetime.now(tz=timezone.utc)
+
+                dt_end = datetime.now(tz=jst)
                 delta = dt_end - dt_start
                 data_end = {
                     "FunctionName": name_function,
@@ -51,17 +44,38 @@ def logging_function(
                         "TotalSeconds": delta.total_seconds(),
                     },
                 }
-                if with_return and not is_error:
-                    data_end["Return"] = result
-                if with_args or is_error:
+                if with_args:
                     data_end["Args"] = args
                     data_end["KwArgs"] = kwargs
-                if write or is_error:
-                    status = "failed" if is_error else "succeeded"
+                if with_return:
+                    data_end["Return"] = result
+                if write:
                     logger.debug(
-                        f'{status} function "{name_function}" ({id_call})',
+                        f'succeeded function "{name_function}" ({id_call})',
                         data=data_end,
                     )
+
+                return result
+            except Exception as e:
+                dt_end = datetime.now(tz=jst)
+                delta = dt_end - dt_start
+
+                logger.debug(
+                    f'failed function "{name_function}" ({id_call})',
+                    exc_info=True,
+                    data={
+                        "FunctionName": name_function,
+                        "CallID": id_call,
+                        "Duration": {
+                            "str": str(delta),
+                            "TotalSeconds": delta.total_seconds(),
+                        },
+                        "Args": args,
+                        "KwArgs": kwargs,
+                        "Error": {"type": str(type(e)), "message": str(e)},
+                    },
+                )
+                raise
 
         return process
 

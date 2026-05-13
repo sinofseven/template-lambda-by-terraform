@@ -31,4 +31,5 @@ module "slack_error_notifier_01" {
   event_bus_name             = aws_cloudwatch_event_bus.slack_error_notifier.name
   iam_role_arn               = aws_iam_role.event_bridge_invoke_api_destination.arn
   connection_arn_slack_dummy = aws_cloudwatch_event_connection.slack_dummy.arn
+  system_name                = var.system_name
 }

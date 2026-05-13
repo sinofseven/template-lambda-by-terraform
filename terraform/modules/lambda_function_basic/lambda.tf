@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "function" {
   function_name                  = replace("${var.system_name}-${var.identifier}", "_", "-")
   role                           = var.role_arn
-  runtime                        = var.runtime
+  runtime                        = "python3.14"
   architectures                  = ["arm64"]
   handler                        = var.handler
   memory_size                    = var.memory_size
@@ -12,12 +12,24 @@ resource "aws_lambda_function" "function" {
   reserved_concurrent_executions = var.reserved_concurrent_executions
   publish                        = true
 
+  dynamic "snap_start" {
+    for_each = var.enable_snap_start ? [1] : []
+    content {
+      apply_on = "PublishedVersions"
+    }
+  }
+
   layers = concat(var.layers, [
     "arn:aws:lambda:ap-northeast-1:017000801446:layer:AWSLambdaPowertoolsPythonV3-python314-arm64:29"
   ])
 
   environment {
-    variables = var.environment_variables
+    variables = merge(
+      {
+        POWERTOOLS_SERVICE_NAME = var.powertools_service_name != null && var.powertools_service_name != "" ? var.powertools_service_name : var.identifier
+      },
+      var.environment_variables
+    )
   }
 }
 
