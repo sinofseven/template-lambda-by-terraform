@@ -22,6 +22,10 @@ powertools = [
     "aws-lambda-powertools[all]==3.29.0",
 ]
 
+[[tool.uv.index]]
+url = "https://pypi.flatt.tech/simple/"
+default = true
+
 [tool.isort]
 profile = "black"
 
