@@ -20,7 +20,7 @@ resource "aws_lambda_function" "function" {
   }
 
   layers = concat(var.layers, [
-    "arn:aws:lambda:ap-northeast-1:017000801446:layer:AWSLambdaPowertoolsPythonV3-python314-arm64:33"
+    "arn:aws:lambda:${var.region}:017000801446:layer:AWSLambdaPowertoolsPythonV3-python314-arm64:33"
   ])
 
   environment {
