@@ -9,10 +9,10 @@ data "archive_file" "lambda_deploy_package" {
 }
 
 resource "aws_s3_object" "lambda_deploy_package" {
-  bucket = aws_s3_bucket.lambda_artifacts.bucket
-  key    = "lambda_deploy_package.zip"
-  source = data.archive_file.lambda_deploy_package.output_path
-  etag   = data.archive_file.lambda_deploy_package.output_md5
+  bucket        = aws_s3_bucket.lambda_artifacts.bucket
+  key           = "lambda_deploy_package.zip"
+  source        = data.archive_file.lambda_deploy_package.output_path
+  etag          = data.archive_file.lambda_deploy_package.output_md5
   storage_class = "STANDARD_IA"
 }
 
