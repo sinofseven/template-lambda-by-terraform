@@ -17,5 +17,6 @@ resource "aws_cloudwatch_metric_alarm" "catch_error_lambda_error_processor" {
   namespace          = "AWS/Lambda"
   period             = 60
   statistic          = "Sum"
+  threshold          = 0
   treat_missing_data = "notBreaching"
 }
