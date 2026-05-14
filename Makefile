@@ -4,8 +4,8 @@ fmt-python:
 	uv run isort src/ tests/
 	uv run black src/ tests/
 
-fmt-tf-envs-dev:
-	cd terraform/envs/dev; \
+fmt-tf-envs-prd:
+	cd terraform/envs/prd; \
 	terraform fmt
 
 fmt-tf-modules-common:
@@ -29,7 +29,7 @@ fmt-tf-modules-lambda-function-basic:
 	terraform fmt
 
 fmt-terraform: \
-	fmt-tf-envs-dev \
+	fmt-tf-envs-prd \
 	fmt-tf-modules-common \
 	fmt-tf-modules-events-slack-webhook-destination \
 	fmt-tf-modules-keep-only-latest-lambda-version \
@@ -51,7 +51,7 @@ test-unit:
 
 .PHONY: \
 	fmt-python \
-	fmt-tf-envs-dev \
+	fmt-tf-envs-prd \
 	fmt-tf-modules-common \
 	fmt-tf-modules-events-slack-webhook-destination \
 	fmt-tf-modules-keep-only-latest-lambda-version \

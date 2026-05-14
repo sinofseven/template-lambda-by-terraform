@@ -64,3 +64,11 @@ variable "SLACK_INCOMING_WEBHOOK_ERROR_NOTIFIER_01" {
   type     = string
   nullable = false
 }
+
+# ================================================================
+# Outputs
+# ================================================================
+
+output "ssm_parameter_prefix_outputs" {
+  value = module.common.ssm_parameter_prefix_outputs
+}
