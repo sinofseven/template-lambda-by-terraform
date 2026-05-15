@@ -218,3 +218,5 @@ cython_debug/
 .idea/
 tmp/
 lambda_deploy_package.zip
+.envrc
+.terraform.lock.hcl
