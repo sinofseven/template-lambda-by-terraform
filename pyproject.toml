@@ -19,7 +19,7 @@ dev = [
 ]
 powertools = [
     # arn:aws:lambda:ap-northeast-1:017000801446:layer:AWSLambdaPowertoolsPythonV3-python314-arm64:33
-    "aws-lambda-powertools[all]==3.29.0",
+    "aws-lambda-powertools[all]==3.31.1",
 ]
 
 [[tool.uv.index]]
