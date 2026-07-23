@@ -118,15 +118,15 @@ wheels = [
 
 [[package]]
 name = "boto3-stubs"
-version = "1.42.97"
+version = "1.43.52"
 source = { registry = "https://pypi.flatt.tech/simple/" }
 dependencies = [
     { name = "botocore-stubs" },
     { name = "types-s3transfer" },
 ]
-sdist = { url = "https://pypi.flatt.tech/files/packages/2c/36/cf331b6fa18348e5c5a40098f93eb698803db747e4265b0263d60e222c61/boto3_stubs-1.42.97.tar.gz", hash = "sha256:f7f4775b0851ff6db0e3fb097064af6437e4de31b797d874a737104998e028c6", size = 102651, upload-time = "2026-04-27T21:17:57.946Z" }
+sdist = { url = "https://pypi.flatt.tech/files/packages/a6/59/c7034cc638ee60d9db85466b74f8fd05a78801f36637e753a6a021614a3e/boto3_stubs-1.43.52.tar.gz", hash = "sha256:8c7bb0431dc7ad412731d9fa166ae71a2b3c1740533e20f1acbee8a03b00ed2f", size = 103225, upload-time = "2026-07-20T20:16:16.838Z" }
 wheels = [
-    { url = "https://pypi.flatt.tech/files/packages/93/35/8298310d1cbaf5dcb7b16073a93a9cb64dc91ec951f32a1cb9e0cacc499b/boto3_stubs-1.42.97-py3-none-any.whl", hash = "sha256:47539eaab612d63b5b828657ee0977237725f7608f19563a2ae7f784042411bc", size = 70666, upload-time = "2026-04-27T21:17:54.87Z" },
+    { url = "https://pypi.flatt.tech/files/packages/a3/ab/65582059478e238cc5aff1c33abbe1729fa5c87feed673d9535916ae0aba/boto3_stubs-1.43.52-py3-none-any.whl", hash = "sha256:8d7a2e4762e36b3d48316f6ef52e5cb937ca41636785295203a794926ad35325", size = 70962, upload-time = "2026-07-20T20:16:12.192Z" },
 ]
 
 [package.optional-dependencies]
@@ -326,11 +326,11 @@ wheels = [
 
 [[package]]
 name = "mypy-boto3-events"
-version = "1.42.3"
+version = "1.43.0"
 source = { registry = "https://pypi.flatt.tech/simple/" }
-sdist = { url = "https://pypi.flatt.tech/files/packages/61/d9/bd1e00bf280d4d79287d8b51ada20379940a4fd58fd685785ac6d7935155/mypy_boto3_events-1.42.3.tar.gz", hash = "sha256:ce8245537442d5b816bcafeb4ec00a4685836e5d7e55e86394633db35f21ec58", size = 33667, upload-time = "2025-12-04T21:02:09.971Z" }
+sdist = { url = "https://pypi.flatt.tech/files/packages/09/20/a95e6d66d2d181cfc7f6a4b450f80e5a7369edc6de4ab8dcbf00c0c3dee4/mypy_boto3_events-1.43.0.tar.gz", hash = "sha256:215b8d686e9b745a864090931d1dfcda2e49bec32383f887d580a2c46492dc26", size = 33709, upload-time = "2026-04-29T23:00:37.044Z" }
 wheels = [
-    { url = "https://pypi.flatt.tech/files/packages/d3/64/2d38bd863f8c5b2bdc8db4e21d7fd9d4b23940041918c5e863d5d61622af/mypy_boto3_events-1.42.3-py3-none-any.whl", hash = "sha256:b1ed74a02588e6de55087190a5ec4ab9eb3a36ed655c3d3b6337f834492d31b3", size = 37499, upload-time = "2025-12-04T21:02:08.127Z" },
+    { url = "https://pypi.flatt.tech/files/packages/33/1e/0064c6964fe54c40fe7d2cd5b3c6c485e44d62a51766beb6a5f84ceff8e0/mypy_boto3_events-1.43.0-py3-none-any.whl", hash = "sha256:f7f5cd246be4d54f6982d42c8f30da47ef78cd2aea53311d251dc09c3f556f97", size = 37588, upload-time = "2026-04-29T23:00:34.723Z" },
 ]
 
 [[package]]
@@ -582,7 +582,7 @@ dev = [
     { name = "aws-cloudwatch-logs-url", specifier = "==1.0.3" },
     { name = "black", specifier = ">=26.3.1" },
     { name = "boto3", specifier = "==1.42.97" },
-    { name = "boto3-stubs", extras = ["events"], specifier = "==1.42.97" },
+    { name = "boto3-stubs", extras = ["events"], specifier = "==1.43.52" },
     { name = "botocore", specifier = "==1.42.97" },
     { name = "freezegun", specifier = ">=1.5.5" },
     { name = "isort", specifier = ">=8.0.1" },
